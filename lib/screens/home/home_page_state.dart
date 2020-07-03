@@ -31,10 +31,10 @@ class HomePageStateNotifier extends StateNotifier<HomePageState>
 
   @override
   void update(Locator watch) {
-    updateState(watch);
+    _updateState(watch);
   }
 
-  void updateState(Locator watch) {
+  void _updateState(Locator watch) {
     watch<AppState>().when(
       loggedOut: () => {
         state = HomePageState.shouldLogin(),

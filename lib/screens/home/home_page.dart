@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:hierarchicalstateexample/exceptions/app_exception.dart';
+import 'package:hierarchicalstateexample/models/dummy_users.dart';
+import 'package:hierarchicalstateexample/models/user.dart';
 import 'package:hierarchicalstateexample/screens/home/home_page_state.dart';
 import 'package:provider/provider.dart';
 
@@ -31,43 +33,62 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildShouldLoginBody(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Center(child: Text("Please Login!")),
-        FlatButton(
-          child: Text("tap me!"),
-          onPressed: () {
-            _showDialog(context);
-          },
-        ),
-      ],
+    return Center(
+      child: Column(
+        children: <Widget>[
+          Text(
+            "ログインしてください!",
+            style: TextStyle(fontSize: 30),
+          ),
+          FlatButton(
+            color: Colors.deepOrangeAccent,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text("ログイン"),
+            ),
+            onPressed: () {
+              _showDialog(context);
+            },
+          ),
+        ],
+      ),
     );
   }
 
-  void _showDialog(BuildContext contexta) {
+  void _showDialog(BuildContext context) {
     showDialog<void>(
-      context: contexta,
-      builder: (context) {
+      context: context,
+      builder: (dialogContext) {
         return SimpleDialog(
           title: Text("ユーザ選択"),
           children: <Widget>[
-            SimpleDialogOption(
-              child: Text("たろう"),
-              onPressed: () {
-                // 本来はテキスト入力とかで値を得るが、exampleなのでベタでIDを入れちゃう
-                contexta.read<HomePageStateNotifier>().login(111);
-                Navigator.pop(context, true);
-              },
-            ),
-            SimpleDialogOption(
-              child: Text("はなこ"),
-              onPressed: () {
-                contexta.read<HomePageStateNotifier>().login(222);
-                Navigator.pop(context, true);
-              },
-            ),
+            _buildDialogItem(context, DummyUsers.taro()),
+            _buildDialogItem(context, DummyUsers.hanako()),
+            _buildDialogItem(context, DummyUsers.youko()),
+            _buildDialogItem(context, DummyUsers.hideo()),
           ],
         );
+      },
+    );
+  }
+
+  SimpleDialogOption _buildDialogItem(BuildContext context, User user) {
+    return SimpleDialogOption(
+      child: Row(
+        children: <Widget>[
+          Image.asset(
+            user.assetPath,
+            width: 50,
+            height: 50,
+            fit: BoxFit.fill,
+          ),
+          Text(user.name),
+        ],
+      ),
+      onPressed: () {
+        // 本来はテキスト入力とかで値を得るが、exampleなのでベタでIDを入れちゃう
+        context.read<HomePageStateNotifier>().login(user.id);
+        Navigator.pop(context, true);
       },
     );
   }
@@ -97,7 +118,11 @@ class HomePage extends StatelessWidget {
             fit: BoxFit.fill,
           ),
           FlatButton(
-            child: Text("別のユーザでログインする"),
+            color: Colors.amber,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text("別のユーザでログインする"),
+            ),
             onPressed: () {
               _showDialog(context);
             },
