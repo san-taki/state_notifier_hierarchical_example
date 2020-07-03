@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
-import 'package:hierarchicalstateexample/app_drawer.dart';
 import 'package:hierarchicalstateexample/app_state.dart';
 import 'package:hierarchicalstateexample/exceptions/app_exception.dart';
 import 'package:hierarchicalstateexample/models/dummy_users.dart';
@@ -22,7 +21,7 @@ class HomePage extends StatelessWidget {
         body: Builder(
           builder: (context) {
             return context
-                .select<HomePageState, HomePageState>((state) => state)
+                .watch<HomePageState>()
                 .when(
                   blank: () => _buildBlankBody(),
                   shouldLogin: () => _buildShouldLoginBody(context),
@@ -43,20 +42,19 @@ class HomePage extends StatelessWidget {
           DrawerHeader(
             child: Card(
               child: Center(
-                child:
-                    context.select<AppState, AppState>((state) => state).when(
-                          loggedOut: () => Text("logout"),
-                          loggedIn: (User user) => Row(
-                            children: <Widget>[
-                              Text(user.name),
-                              Image.asset(
-                                user.assetPath,
-                                fit: BoxFit.fill,
-                              )
-                            ],
-                          ),
-                          error: (AppException e) => Text("error"),
-                        ),
+                child: context.watch<AppState>().when(
+                      loggedOut: () => Text("logout"),
+                      loggedIn: (User user) => Row(
+                        children: <Widget>[
+                          Text(user.name),
+                          Image.asset(
+                            user.assetPath,
+                            fit: BoxFit.fill,
+                          )
+                        ],
+                      ),
+                      error: (AppException e) => Text("error"),
+                    ),
               ),
             ),
           ),
