@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hierarchicalstateexample/exceptions/app_exception.dart';
-import 'package:hierarchicalstateexample/models/dummy_users.dart';
 import 'package:hierarchicalstateexample/models/user.dart';
 import 'package:hierarchicalstateexample/resource/api/login_service.dart';
 import 'package:state_notifier/state_notifier.dart';
@@ -58,5 +57,10 @@ class AppStateNotifier extends StateNotifier<AppState> with LocatorMixin {
         }
       },
     );
+  }
+
+  logout() async {
+    await _loginService.logout();
+    state = AppState.loggedOut();
   }
 }

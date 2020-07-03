@@ -20,4 +20,9 @@ class LoginService {
         throw AppException.login(code: 9, message: "user not found");
     }
   }
+
+  logout() async {
+    // サーバの情報を消しに行く
+    await Future.delayed(Duration(microseconds: 500));
+  }
 }

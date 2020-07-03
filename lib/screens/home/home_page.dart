@@ -168,6 +168,16 @@ class HomePage extends StatelessWidget {
               _showDialog(context);
             },
           ),
+          FlatButton(
+            color: Colors.blueGrey,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text("ログアウトする"),
+            ),
+            onPressed: () {
+              context.read<HomePageStateNotifier>().logout();
+            },
+          ),
         ],
       ),
     );

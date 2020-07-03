@@ -51,6 +51,10 @@ class HomePageStateNotifier extends StateNotifier<HomePageState>
   void login(int id) {
     _appStateNotifier.login(id);
   }
+
+  void logout() {
+    _appStateNotifier.logout();
+  }
 }
 
 @freezed
