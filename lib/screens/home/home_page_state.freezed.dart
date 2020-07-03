@@ -12,6 +12,8 @@ HomePageState _$HomePageStateFromJson(Map<String, dynamic> json) {
   switch (json['runtimeType'] as String) {
     case 'blank':
       return Blank.fromJson(json);
+    case 'shouldLogin':
+      return ShouldLogin.fromJson(json);
     case 'ideal':
       return Ideal.fromJson(json);
     case 'error':
@@ -29,14 +31,20 @@ class _$HomePageStateTearOff {
     return const Blank();
   }
 
+  ShouldLogin shouldLogin() {
+    return const ShouldLogin();
+  }
+
   Ideal ideal({@required IdealData data}) {
     return Ideal(
       data: data,
     );
   }
 
-  Error error() {
-    return const Error();
+  Error error({@required AppException exception}) {
+    return Error(
+      exception: exception,
+    );
   }
 }
 
@@ -47,25 +55,29 @@ mixin _$HomePageState {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result blank(),
+    @required Result shouldLogin(),
     @required Result ideal(IdealData data),
-    @required Result error(),
+    @required Result error(AppException exception),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result blank(),
+    Result shouldLogin(),
     Result ideal(IdealData data),
-    Result error(),
+    Result error(AppException exception),
     @required Result orElse(),
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result blank(Blank value),
+    @required Result shouldLogin(ShouldLogin value),
     @required Result ideal(Ideal value),
     @required Result error(Error value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result blank(Blank value),
+    Result shouldLogin(ShouldLogin value),
     Result ideal(Ideal value),
     Result error(Error value),
     @required Result orElse(),
@@ -126,10 +138,12 @@ class _$Blank implements Blank {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result blank(),
+    @required Result shouldLogin(),
     @required Result ideal(IdealData data),
-    @required Result error(),
+    @required Result error(AppException exception),
   }) {
     assert(blank != null);
+    assert(shouldLogin != null);
     assert(ideal != null);
     assert(error != null);
     return blank();
@@ -139,8 +153,9 @@ class _$Blank implements Blank {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result blank(),
+    Result shouldLogin(),
     Result ideal(IdealData data),
-    Result error(),
+    Result error(AppException exception),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -154,10 +169,12 @@ class _$Blank implements Blank {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result blank(Blank value),
+    @required Result shouldLogin(ShouldLogin value),
     @required Result ideal(Ideal value),
     @required Result error(Error value),
   }) {
     assert(blank != null);
+    assert(shouldLogin != null);
     assert(ideal != null);
     assert(error != null);
     return blank(this);
@@ -167,6 +184,7 @@ class _$Blank implements Blank {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result blank(Blank value),
+    Result shouldLogin(ShouldLogin value),
     Result ideal(Ideal value),
     Result error(Error value),
     @required Result orElse(),
@@ -188,6 +206,117 @@ abstract class Blank implements HomePageState {
   const factory Blank() = _$Blank;
 
   factory Blank.fromJson(Map<String, dynamic> json) = _$Blank.fromJson;
+}
+
+abstract class $ShouldLoginCopyWith<$Res> {
+  factory $ShouldLoginCopyWith(
+          ShouldLogin value, $Res Function(ShouldLogin) then) =
+      _$ShouldLoginCopyWithImpl<$Res>;
+}
+
+class _$ShouldLoginCopyWithImpl<$Res> extends _$HomePageStateCopyWithImpl<$Res>
+    implements $ShouldLoginCopyWith<$Res> {
+  _$ShouldLoginCopyWithImpl(
+      ShouldLogin _value, $Res Function(ShouldLogin) _then)
+      : super(_value, (v) => _then(v as ShouldLogin));
+
+  @override
+  ShouldLogin get _value => super._value as ShouldLogin;
+}
+
+@JsonSerializable()
+class _$ShouldLogin implements ShouldLogin {
+  const _$ShouldLogin();
+
+  factory _$ShouldLogin.fromJson(Map<String, dynamic> json) =>
+      _$_$ShouldLoginFromJson(json);
+
+  @override
+  String toString() {
+    return 'HomePageState.shouldLogin()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is ShouldLogin);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result blank(),
+    @required Result shouldLogin(),
+    @required Result ideal(IdealData data),
+    @required Result error(AppException exception),
+  }) {
+    assert(blank != null);
+    assert(shouldLogin != null);
+    assert(ideal != null);
+    assert(error != null);
+    return shouldLogin();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result blank(),
+    Result shouldLogin(),
+    Result ideal(IdealData data),
+    Result error(AppException exception),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (shouldLogin != null) {
+      return shouldLogin();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result blank(Blank value),
+    @required Result shouldLogin(ShouldLogin value),
+    @required Result ideal(Ideal value),
+    @required Result error(Error value),
+  }) {
+    assert(blank != null);
+    assert(shouldLogin != null);
+    assert(ideal != null);
+    assert(error != null);
+    return shouldLogin(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result blank(Blank value),
+    Result shouldLogin(ShouldLogin value),
+    Result ideal(Ideal value),
+    Result error(Error value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (shouldLogin != null) {
+      return shouldLogin(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$ShouldLoginToJson(this)..['runtimeType'] = 'shouldLogin';
+  }
+}
+
+abstract class ShouldLogin implements HomePageState {
+  const factory ShouldLogin() = _$ShouldLogin;
+
+  factory ShouldLogin.fromJson(Map<String, dynamic> json) =
+      _$ShouldLogin.fromJson;
 }
 
 abstract class $IdealCopyWith<$Res> {
@@ -261,10 +390,12 @@ class _$Ideal implements Ideal {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result blank(),
+    @required Result shouldLogin(),
     @required Result ideal(IdealData data),
-    @required Result error(),
+    @required Result error(AppException exception),
   }) {
     assert(blank != null);
+    assert(shouldLogin != null);
     assert(ideal != null);
     assert(error != null);
     return ideal(data);
@@ -274,8 +405,9 @@ class _$Ideal implements Ideal {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result blank(),
+    Result shouldLogin(),
     Result ideal(IdealData data),
-    Result error(),
+    Result error(AppException exception),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -289,10 +421,12 @@ class _$Ideal implements Ideal {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result blank(Blank value),
+    @required Result shouldLogin(ShouldLogin value),
     @required Result ideal(Ideal value),
     @required Result error(Error value),
   }) {
     assert(blank != null);
+    assert(shouldLogin != null);
     assert(ideal != null);
     assert(error != null);
     return ideal(this);
@@ -302,6 +436,7 @@ class _$Ideal implements Ideal {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result blank(Blank value),
+    Result shouldLogin(ShouldLogin value),
     Result ideal(Ideal value),
     Result error(Error value),
     @required Result orElse(),
@@ -331,6 +466,9 @@ abstract class Ideal implements HomePageState {
 abstract class $ErrorCopyWith<$Res> {
   factory $ErrorCopyWith(Error value, $Res Function(Error) then) =
       _$ErrorCopyWithImpl<$Res>;
+  $Res call({AppException exception});
+
+  $AppExceptionCopyWith<$Res> get exception;
 }
 
 class _$ErrorCopyWithImpl<$Res> extends _$HomePageStateCopyWithImpl<$Res>
@@ -340,52 +478,87 @@ class _$ErrorCopyWithImpl<$Res> extends _$HomePageStateCopyWithImpl<$Res>
 
   @override
   Error get _value => super._value as Error;
+
+  @override
+  $Res call({
+    Object exception = freezed,
+  }) {
+    return _then(Error(
+      exception:
+          exception == freezed ? _value.exception : exception as AppException,
+    ));
+  }
+
+  @override
+  $AppExceptionCopyWith<$Res> get exception {
+    if (_value.exception == null) {
+      return null;
+    }
+    return $AppExceptionCopyWith<$Res>(_value.exception, (value) {
+      return _then(_value.copyWith(exception: value));
+    });
+  }
 }
 
 @JsonSerializable()
 class _$Error implements Error {
-  const _$Error();
+  const _$Error({@required this.exception}) : assert(exception != null);
 
   factory _$Error.fromJson(Map<String, dynamic> json) =>
       _$_$ErrorFromJson(json);
 
   @override
+  final AppException exception;
+
+  @override
   String toString() {
-    return 'HomePageState.error()';
+    return 'HomePageState.error(exception: $exception)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Error);
+    return identical(this, other) ||
+        (other is Error &&
+            (identical(other.exception, exception) ||
+                const DeepCollectionEquality()
+                    .equals(other.exception, exception)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(exception);
+
+  @override
+  $ErrorCopyWith<Error> get copyWith =>
+      _$ErrorCopyWithImpl<Error>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result blank(),
+    @required Result shouldLogin(),
     @required Result ideal(IdealData data),
-    @required Result error(),
+    @required Result error(AppException exception),
   }) {
     assert(blank != null);
+    assert(shouldLogin != null);
     assert(ideal != null);
     assert(error != null);
-    return error();
+    return error(exception);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result blank(),
+    Result shouldLogin(),
     Result ideal(IdealData data),
-    Result error(),
+    Result error(AppException exception),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {
-      return error();
+      return error(exception);
     }
     return orElse();
   }
@@ -394,10 +567,12 @@ class _$Error implements Error {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result blank(Blank value),
+    @required Result shouldLogin(ShouldLogin value),
     @required Result ideal(Ideal value),
     @required Result error(Error value),
   }) {
     assert(blank != null);
+    assert(shouldLogin != null);
     assert(ideal != null);
     assert(error != null);
     return error(this);
@@ -407,6 +582,7 @@ class _$Error implements Error {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result blank(Blank value),
+    Result shouldLogin(ShouldLogin value),
     Result ideal(Ideal value),
     Result error(Error value),
     @required Result orElse(),
@@ -425,9 +601,12 @@ class _$Error implements Error {
 }
 
 abstract class Error implements HomePageState {
-  const factory Error() = _$Error;
+  const factory Error({@required AppException exception}) = _$Error;
 
   factory Error.fromJson(Map<String, dynamic> json) = _$Error.fromJson;
+
+  AppException get exception;
+  $ErrorCopyWith<Error> get copyWith;
 }
 
 IdealData _$IdealDataFromJson(Map<String, dynamic> json) {
