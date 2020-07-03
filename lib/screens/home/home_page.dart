@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
+import 'package:hierarchicalstateexample/app_drawer.dart';
+import 'package:hierarchicalstateexample/app_state.dart';
 import 'package:hierarchicalstateexample/exceptions/app_exception.dart';
 import 'package:hierarchicalstateexample/models/dummy_users.dart';
 import 'package:hierarchicalstateexample/models/user.dart';
@@ -16,6 +18,7 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           title: Text('Hierarchical State Example'),
         ),
+        drawer: _buildDrawer(context),
         body: Builder(
           builder: (context) {
             return context
@@ -28,6 +31,46 @@ class HomePage extends StatelessWidget {
                 ); // This trailing comma makes auto-formatting nicer for build methods.
           },
         ),
+      ),
+    );
+  }
+
+  Widget _buildDrawer(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          DrawerHeader(
+            child: Card(
+              child: Center(
+                child:
+                    context.select<AppState, AppState>((state) => state).when(
+                          loggedOut: () => Text("logout"),
+                          loggedIn: (User user) => Row(
+                            children: <Widget>[
+                              Text(user.name),
+                              Image.asset(
+                                user.assetPath,
+                                fit: BoxFit.fill,
+                              )
+                            ],
+                          ),
+                          error: (AppException e) => Text("error"),
+                        ),
+              ),
+            ),
+          ),
+          ListTile(
+            title: Text("アイテム１"),
+            dense: true,
+            onTap: () {},
+          ),
+          ListTile(
+            title: Text("アイテム２"),
+            dense: true,
+            onTap: () {},
+          ),
+        ],
       ),
     );
   }
